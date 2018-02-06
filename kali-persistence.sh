@@ -25,3 +25,4 @@ mount /dev/mapper/miusb /mnt/miusb
 echo "/ union" > /mnt/miusb/persistence.conf
 echo "Desmontamos el disco miusb"
 umount /dev/mapper/miusb
+echo "Fin de la configuracion, cree una carpeta en el escritorio y reinicie para verificar que todo ha ido correcto."
