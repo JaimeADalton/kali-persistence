@@ -25,4 +25,20 @@ mount /dev/mapper/miusb /mnt/miusb
 echo "/ union" > /mnt/miusb/persistence.conf
 echo "Desmontamos el disco miusb"
 umount /dev/mapper/miusb
-echo "Fin de la configuracion, cree una carpeta en el escritorio y reinicie para verificar que todo ha ido correcto."
+
+echo "¿Desea actualizar Kali?"
+read -p " S/N " opcion
+case $opcion in
+    s|S) 
+       apt-key adv --keyserver hkp://keys.gnupg.net --recv-keys 7D8D0BF6
+       apt update
+       apt dist-upgrade -y
+    ;;
+    n|N)
+       echo "Fin de la configuracion, cree una carpeta en el escritorio y reinicie para verificar que todo ha ido correcto."
+       exit 1
+    ;;
+    *)
+       echo "Desconozco esa opción"
+    ;;
+esac
