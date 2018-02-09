@@ -26,8 +26,8 @@ echo "/ union" > /mnt/miusb/persistence.conf
 echo "Desmontamos el disco miusb"
 umount /dev/mapper/miusb
 
-echo "¿Desea actualizar Kali?"
-read -p " S/N " opcion
+echo "¿Desea actualizar Kali? (s/n)"
+read opcion
 case $opcion in
     s|S) 
        apt-key adv --keyserver hkp://keys.gnupg.net --recv-keys 7D8D0BF6
