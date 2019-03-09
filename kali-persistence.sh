@@ -26,9 +26,8 @@ echo "/ union" > /mnt/miusb/persistence.conf
 echo "Desmontamos el disco miusb"
 umount /dev/mapper/miusb
 
-
-distro=$(cat /etc/os-release  | grep NAME | head -n 1 | cut -d= -f2 | sed 's/\"//g')
-if [ $distro = Kali ]; then
+distro=$(cat /etc/os-release | grep ID | cut -d= -f2 | head -n1)
+if [ $distro = kali ]; then
 echo "¿Desea actualizar Kali? (s/n)"
 read opcion
 case $opcion in
