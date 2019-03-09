@@ -26,6 +26,9 @@ echo "/ union" > /mnt/miusb/persistence.conf
 echo "Desmontamos el disco miusb"
 umount /dev/mapper/miusb
 
+
+distro=$(cat /etc/os-release  | grep NAME | head -n 1 | cut -d= -f2 | sed 's/\"//g')
+if [ $distro = Kali ]; then
 echo "¿Desea actualizar Kali? (s/n)"
 read opcion
 case $opcion in
@@ -42,3 +45,6 @@ case $opcion in
        echo "Desconozco esa opción"
     ;;
 esac
+else
+    echo "Ejecuta este ultimo codigo solo en Kali linux"
+fi
