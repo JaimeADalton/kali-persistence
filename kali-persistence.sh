@@ -2,9 +2,9 @@
 
 # En gparted En sistemas de archivos seleccionamos "sin formatear" la particion libre,  Aplicamos los cambios, 
 #Manual https://gnulinuxvagos.es/topic/6100-kali-linux-en-usb-con-persistencia-de-datos-cifrado/
-
-echo "Escribe la ruta de la particion (i.e. /dev/sdX1)"
-read ruta
+if [ $DISTRO = kali ]; then
+DISTRO=$(cat /etc/os-release | grep ID | cut -d= -f2 | head -n1)
+read -p "Escribe la ruta de la particion (i.e. /dev/sdX1): " ruta
 
 #Cifrar la partición con cryptsetup
 echo "Cifrar la partición con cryptsetup"
@@ -26,13 +26,13 @@ echo "/ union" > /mnt/miusb/persistence.conf
 echo "Desmontamos el disco miusb"
 umount /dev/mapper/miusb
 
-distro=$(cat /etc/os-release | grep ID | cut -d= -f2 | head -n1)
-if [ $distro = kali ]; then
+#Añadimos la clave para poder acceder a los repositorios de kali
+apt-key adv --keyserver hkp://keys.gnupg.net --recv-keys 7D8D0BF6
+
 echo "¿Desea actualizar Kali? (s/n)"
 read opcion
 case $opcion in
-    s|S) 
-       apt-key adv --keyserver hkp://keys.gnupg.net --recv-keys 7D8D0BF6
+    s|S)
        apt update
        apt dist-upgrade -y
     ;;
@@ -45,5 +45,5 @@ case $opcion in
     ;;
 esac
 else
-    echo "Ejecuta este ultimo codigo solo en Kali linux"
+    echo "Ejecuta este codigo solo en Kali linux"
 fi
